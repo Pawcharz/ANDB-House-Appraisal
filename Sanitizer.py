@@ -11,6 +11,9 @@ df['prev_sold_date'] = pd.to_datetime(df['prev_sold_date'], errors='coerce')
 current_date = datetime.now()
 df = df[df['prev_sold_date'] <= current_date]
 
+cutoff_date = datetime(2020, 1, 1)
+df = df[df['prev_sold_date'] >= cutoff_date]
+
 rows_to_remove = len(df) // 4  
 df = df.iloc[:-rows_to_remove]  
 
