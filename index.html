@@ -21,32 +21,38 @@
       <h1 class="text-center">Predict Apartment Price</h1>
       <form id="predictForm" action="http://127.0.0.1:8000/predict">
         <div class="mb-3">
-          <label for="feature1" class="form-label">Feature 1 (float)</label>
+          <label for="bedrooms" class="form-label"
+            >Number of bedrooms (int)</label
+          >
           <input
             type="text"
             class="form-control"
-            id="feature1"
-            placeholder="Enter feature 1"
+            id="bedrooms"
+            placeholder="Enter a number"
             required
           />
         </div>
         <div class="mb-3">
-          <label for="feature2" class="form-label">Feature 2 (integer)</label>
+          <label for="bathrooms" class="form-label"
+            >Number of bathrooms (int)</label
+          >
           <input
             type="text"
             class="form-control"
-            id="feature2"
-            placeholder="Enter feature 2"
+            id="bathrooms"
+            placeholder="Enter a number"
             required
           />
         </div>
         <div class="mb-3">
-          <label for="feature3" class="form-label">Feature 3 (string)</label>
+          <label for="house_size" class="form-label"
+            >House size: house area or living space in square feet (int)</label
+          >
           <input
             type="text"
             class="form-control"
-            id="feature3"
-            placeholder="Enter feature 3"
+            id="house_size"
+            placeholder="Enter a number"
             required
           />
         </div>
