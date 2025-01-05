@@ -12,9 +12,9 @@ app = FastAPI()
 
 # Define the input data model
 class InputData(BaseModel):
-    feature1: str
-    feature2: str
-    feature3: str
+    bedrooms: int
+    bathrooms: int
+    house_size: int
 
 
 @app.get("/predict")
