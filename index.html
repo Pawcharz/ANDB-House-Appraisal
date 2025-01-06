@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <title>House Appraisal</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">Predict Apartment Price</h1>
+      <form id="predictForm" action="http://127.0.0.1:8000/predict">
+        <div class="mb-3">
+          <label for="bedrooms" class="form-label"
+            >Number of bedrooms (int)</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="bedrooms"
+            name="bedrooms"
+            placeholder="Enter a number"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="bathrooms" class="form-label"
+            >Number of bathrooms (int)</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="bathrooms"
+            name="bathrooms"
+            placeholder="Enter a number"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="house_size" class="form-label"
+            >House size: house area or living space in square feet (int)</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="house_size"
+            name="house_size"
+            placeholder="Enter a number"
+            required
+          />
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-success btn-block">Predict</button>
+      </form>
+    </div>
+    <div class="container mt-5 text-center">
+      <h2 class="mb-4">Prediction Result:</h2>
+      <p id="result" class="display-6"></p>
+    </div>
+
+    <script>
+      // JavaScript to handle form submission
+      document
+        .getElementById("predictForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault(); // Prevent form reload
+
+          const formData = new FormData(event.target);
+          const queryParams = new URLSearchParams(formData).toString();
+
+          try {
+            // Send GET request to the FastAPI server
+            const response = await fetch(
+              `http://127.0.0.1:8000/predict?${queryParams}`,
+              {
+                method: "GET",
+              },
+            );
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            // Parse and display the result
+            const result = await response.json();
+            document.getElementById("result").textContent =
+              `$${result.predicted_price}`;
+          } catch (error) {
+            document.getElementById("result").textContent =
+              `Error: ${error.message}`;
+          }
+        });
+    </script>
+  </body>
+</html>
