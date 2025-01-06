@@ -1,5 +1,5 @@
 from fastapi import Depends, FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 # import pickle
 
 
@@ -10,11 +10,11 @@ app = FastAPI()
 #     model = pickle.load(f)
 
 
-# Define the input data model
 class InputData(BaseModel):
-    bedrooms: int
-    bathrooms: int
-    house_size: int
+    bedrooms: int = Field(..., gt=0, lt=400, description="Number of bedrooms must be greater than 0 and less than 400")
+    bathrooms: int = Field(..., gt=0, lt=400, description="Number of bathrooms must be greater than 0 and less than 400")
+    house_size: int = Field(..., gt=0, description="House size must be greater than 0")
+
 
 
 @app.get("/predict")
